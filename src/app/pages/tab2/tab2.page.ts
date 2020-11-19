@@ -18,13 +18,22 @@ export class Tab2Page implements OnInit{
   constructor( private NoticiasService: NoticiasService) {}
 
 ngOnInit(){
-  this.segment.value = this.categorias[0];
-  this.NoticiasService.getTopHeadLinesCategoria( this.categorias[0])
+ // this.segment.value = this.categorias[0];
+this.cargarNoticias(this.categorias[0])
+}
+cambioCategoria( event ){
+  this.noticias = [];
+  this.cargarNoticias( event.detail.value )
+}
+ cargarNoticias( categoria: string){
+
+  this.NoticiasService.getTopHeadLinesCategoria( categoria)
   .subscribe( resp => {
     console.log( resp );
     this.noticias.push(
       ...resp.articles
     );
   });
-}
+ }
+
 }
